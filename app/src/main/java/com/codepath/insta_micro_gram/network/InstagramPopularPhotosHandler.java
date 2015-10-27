@@ -1,6 +1,8 @@
-package com.codepath.insta_micro_gram;
+package com.codepath.insta_micro_gram.network;
 
 import android.util.Log;
+
+import com.codepath.insta_micro_gram.models.InstagramPhotoModel;
 
 import java.util.ArrayList;
 

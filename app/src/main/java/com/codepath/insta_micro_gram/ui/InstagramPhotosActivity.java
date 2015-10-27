@@ -1,10 +1,19 @@
-package com.codepath.insta_micro_gram;
+package com.codepath.insta_micro_gram.ui;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.codepath.insta_micro_gram.R;
+import com.codepath.insta_micro_gram.adapters.InstagramPhotosAdapter;
+import com.codepath.insta_micro_gram.models.InstagramPhotoModel;
+import com.codepath.insta_micro_gram.network.InstagramAPIClient;
+import com.codepath.insta_micro_gram.network.InstagramPopularPhotosHandler;
 
 import java.util.ArrayList;
 
@@ -20,10 +29,12 @@ public class InstagramPhotosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        client = new InstagramAPIClient();
+        client = new InstagramAPIClient(this);
         photosAdapter = new InstagramPhotosAdapter(this, R.id.photoItemView, popularPhotos);
         ListView photosListView = (ListView) findViewById(R.id.photosListView);
         photosListView.setAdapter(photosAdapter);
+
+        final Context errorContext = this;
 
         client.getPopularPhotos( new InstagramPopularPhotosHandler() {
             @Override
@@ -38,6 +49,14 @@ public class InstagramPhotosActivity extends AppCompatActivity {
             public void onFailure(int statusCode, String errorMessage) {
                 popularPhotos.clear();
                 photosAdapter.notifyDataSetChanged();
+
+                new AlertDialog.Builder(errorContext).setTitle("Error").setMessage(errorMessage).setCancelable(false).
+                        setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing for now
+                            }
+                        }).create().show();
             }
         });
     }

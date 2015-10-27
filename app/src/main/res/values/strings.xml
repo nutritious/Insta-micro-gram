@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="instagram_photo_content_description">Instagram Photo</string>
+    <string name="like_count_hint_text">like count goes here</string>
+    <string name="username_hint_text">username goes here</string>
+    <string name="caption_hint_text">Caption goes here</string>
 </resources>

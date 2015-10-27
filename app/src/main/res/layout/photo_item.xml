@@ -17,33 +17,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Caption goes here"
         android:id="@+id/captionTextView"
         android:ellipsize="end"
         android:maxLines="3"
         android:layout_below="@+id/usernameTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="@string/caption_hint_text"
+        android:focusableInTouchMode="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="username goes here"
         android:id="@+id/usernameTextView"
         android:ellipsize="end"
         android:maxLines="3"
         android:layout_below="@+id/photoImageView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="@string/username_hint_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="like count goes here"
         android:id="@+id/likeCountTextView"
         android:ellipsize="end"
         android:maxLines="3"
         android:layout_below="@+id/photoImageView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="@string/like_count_hint_text" />
 </RelativeLayout>

@@ -1,5 +1,10 @@
-package com.codepath.insta_micro_gram;
+package com.codepath.insta_micro_gram.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import com.codepath.insta_micro_gram.models.InstagramPhotoModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -19,9 +24,26 @@ public class InstagramAPIClient {
     private static final String CLIENT_ID = "a50dedc0a5984edcb022df32a1bf2390";
     private static final String BASE_URL = "https://api.instagram.com/v1/";
 
+    private Context context;
+
+    //
+    // Private Helpers
+    //
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     //
     // -- Interface --
     //
+
+    public InstagramAPIClient(Context context) {
+        this.context = context;
+    }
+
     public void getPopularPhotos(final InstagramPopularPhotosHandler handler) {
         final String path = "media/popular";
 
@@ -53,7 +75,16 @@ public class InstagramAPIClient {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                handler.onFailure(statusCode, errorResponse.toString());
+
+                String errorMessage;
+
+                if (!isNetworkAvailable()) {
+                    errorMessage = "Network is NOT available. Try again later.";
+                } else {
+                    errorMessage = errorResponse.toString();
+                }
+
+                handler.onFailure(statusCode, errorMessage);
             }
         });
     }
