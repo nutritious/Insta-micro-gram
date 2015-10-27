@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Popular Photos</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="instagram_photo_content_description">Instagram Photo</string>
+</resources>
